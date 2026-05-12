@@ -204,7 +204,8 @@ body{font-family:'DM Sans',sans-serif;background:#fefae0;color:var(--text);min-h
 const GITHUB_USER = 'manalamees';
 const GITHUB_REPO = 'PerenaiseABC';
 const GITHUB_FILE = 'recipes.json';
-const RECIPES_URL = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${GITHUB_FILE}`;
+const RECIPES_URL = './recipes.json';
+const GITHUB_BACKUP_URL = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${GITHUB_FILE}`;
 // ──────────────────────────────────────────────────────────────────────────
 
 const DAYS=['Esmaspäev','Teisipäev','Kolmapäev','Neljapäev','Reede','Laupäev','Pühapäev'];
@@ -225,20 +226,30 @@ async function init(){
   // Proovi GitHubist laadida
   prog(20,'Laen retsepte GitHubist...');
   try{
-    const r=await fetch(RECIPES_URL+'?t='+Date.now());
-    if(!r.ok)throw new Error('HTTP '+r.status);
+    let r=await fetch(RECIPES_URL+'?t='+Date.now());
+    if(!r.ok)throw new Error('LOCAL HTTP '+r.status);
     prog(70,'Töötlen retsepte...');
     RECIPES=await r.json();
     prog(100,'Valmis!');
     sv('tp_recipes_cache',RECIPES);
   }catch(e){
-    prog(50,'GitHub ei vasta, kasutan vahemälu...');
-    const cache=ld('tp_recipes_cache');
-    if(cache&&cache.length>0){
-      RECIPES=cache;
-    }else{
-      prog(80,'Kasutan varuandmeid...');
-      RECIPES=getFallback();
+    prog(45,'Kohalik fail ei laaditud, proovin GitHubi...');
+    try{
+      const r=await fetch(GITHUB_BACKUP_URL+'?t='+Date.now());
+      if(!r.ok)throw new Error('GITHUB HTTP '+r.status);
+      prog(70,'Töötlen retsepte...');
+      RECIPES=await r.json();
+      prog(100,'Valmis!');
+      sv('tp_recipes_cache',RECIPES);
+    }catch(e2){
+      prog(50,'Retseptifail ei laaditud, kasutan vahemälu...');
+      const cache=ld('tp_recipes_cache');
+      if(cache&&cache.length>0){
+        RECIPES=cache;
+      }else{
+        prog(80,'Kasutan varuandmeid...');
+        RECIPES=getFallback();
+      }
     }
   }
 
@@ -283,7 +294,7 @@ function filterR(){
   document.getElementById('rcount').textContent=`${f.length} retsepti`;
   document.getElementById('rlist').innerHTML=f.length?f.map(r=>`
     <div class="rrow">
-      ${r.thumb?`<img class="rthumb" src="${r.thumb}/preview" alt="${r.name}" loading="lazy" onerror="this.style.display='none'" />`:`<div class="rthumb-ph">${EMOJI[r.cat]||'🍽️'}</div>`}
+      ${r.thumb?`<img class="rthumb" src="${r.thumb}" alt="${r.name}" loading="lazy" onerror="this.style.display='none'" />`:`<div class="rthumb-ph">${EMOJI[r.cat]||'🍽️'}</div>`}
       <div class="rinfo">
         <div class="rname">${r.name}</div>
         <div class="rcat">${r.cat} · ${r.ingredients.length} koostisainet</div>
