@@ -150,10 +150,10 @@ body{font-family:'DM Sans',sans-serif;background:#fefae0;color:var(--text);min-h
         </div>
       </div>
       <div class="week-grid" id="week-grid"></div>
-    <div class="btn-row">
+      <div class="btn-row">
         <button class="btn btn-g" onclick="showTab('cart')">🛒 Ostukorv</button>
         <button class="btn btn-g" onclick="showTab('recipes')">🔍 Retseptid</button>
-        <button class="btn" style="background:#fefae0;border-color:var(--green)" onclick="magicMenu()">🎲 Üllata mind</button>
+        <button class="btn" style="background:#fefae0;border-color:var(--green);font-weight:700" onclick="magicMenu()">🎲 Üllata mind</button>
         <button class="btn" onclick="clearMenu()">🗑️ Tühjenda</button>
       </div>
     </div>
@@ -227,7 +227,7 @@ async function init(){
     const r=await fetch(RECIPES_URL+'?t='+Date.now());
     if(!r.ok)throw new Error('HTTP '+r.status);
     prog(70,'Töötlen retsepte...');
-    RECIPES=await r.json();
+    RECIPES = await r.json();
     prog(100,'Valmis!');
     sv('tp_recipes_cache',RECIPES);
   }catch(e){
@@ -240,7 +240,6 @@ async function init(){
       RECIPES=getFallback();
     }
   }
-
   setTimeout(boot,300);
 }
 
@@ -263,19 +262,36 @@ function renderWeek(){
   }).join('');
 }
 
+// FUNKTSIOON MIS TÄIDAB TÜHJAD PÄEVAD
 function magicMenu() {
-  if(RECIPES.length === 0) return;
-  const daysWithFood = Object.keys(menu).length;
-  if(daysWithFood > 0 && !confirm('Kas soovid tühjad päevad täita suvaliste retseptidega?')) return;
-
+  if(!RECIPES || RECIPES.length === 0) {
+    alert("Retsepte ei leitud!");
+    return;
+  }
+  
+  let added = false;
   for(let i = 0; i < 7; i++) {
     if(!menu[i]) {
       const randomR = RECIPES[Math.floor(Math.random() * RECIPES.length)];
       menu[i] = randomR;
+      added = true;
     }
   }
-  sv('tp_menu', menu);
-  renderWeek();
+  
+  if(added) {
+    sv('tp_menu', menu);
+    renderWeek();
+  } else {
+    if(confirm("Menüü on juba täis. Kas soovid selle asendada uue suvalise valikuga?")) {
+      menu = {};
+      for(let i = 0; i < 7; i++) {
+        const randomR = RECIPES[Math.floor(Math.random() * RECIPES.length)];
+        menu[i] = randomR;
+      }
+      sv('tp_menu', menu);
+      renderWeek();
+    }
+  }
 }
 
 function renderCats(){
@@ -352,7 +368,7 @@ function closeR(){document.getElementById('rmodal').classList.remove('open');}
 function renderCart(){
   const daysWithFood=Object.keys(menu);
   const el=document.getElementById('cart');
-  if(!daysWithFood.length){el.innerHTML='<div class="empty"><div class="empty-icon">🛒</div>Menüü on tühi.<br>Lisa esmalt retseptid.</div>';return;}
+  if(!daysWithFood.length){el.innerHTML='<div class="empty"><div class="empty-icon">🛒</div>Menüü on tühi.</div>';return;}
   const merged={};
   daysWithFood.forEach(i=>{menu[i].ingredients.forEach(it=>{const k=it.i.toLowerCase();if(!merged[k])merged[k]={name:it.i,qtys:[]};if(it.m)merged[k].qtys.push(it.m);});});
   const items=Object.values(merged);
@@ -362,14 +378,12 @@ function renderCart(){
       <div class="cart-hdr-t">🛒 Ostukorv</div>
       <div class="cart-hdr-s">${done}/${items.length} ostetud · ${persons} inimesele</div>
     </div>
-    <div class="notice">Klõpsa tootel kui ostetud ✓</div>
     ${items.map(it=>{const k=it.name.toLowerCase();const ok=checked.has(k);return`<div class="citem" onclick="tog('${k}')">
       <div class="ccheck${ok?' done':''}">${ok?'✓':''}</div>
       <div class="cname${ok?' done':''}">${it.name}</div>
       <div class="cqty">${it.qtys.slice(0,2).join(', ')}</div>
     </div>`;}).join('')}
-    <div class="copy-bar" id="cpbar" onclick="copyL()">📋 Kopeeri nimekiri</div>
-    <button class="btn" style="width:100%;margin-top:8px" onclick="checked.clear();renderCart()">↺ Lähtesta märgistus</button>`;
+    <div class="copy-bar" id="cpbar" onclick="copyL()">📋 Kopeeri nimekiri</div>`;
 }
 
 function tog(k){checked.has(k)?checked.delete(k):checked.add(k);renderCart();}
@@ -384,9 +398,9 @@ function copyL(){
   DAYS.forEach((d,i)=>{if(menu[i])lines.push(`${d}: ${menu[i].name}`);});
   navigator.clipboard.writeText(lines.join('\n')).then(()=>{
     const b=document.getElementById('cpbar');
-    b.textContent='✓ Kopeeritud! Kleebi WhatsAppi.';b.style.background='#1f4d38';
-    setTimeout(()=>{b.textContent='📋 Kopeeri nimekiri';b.style.background='';},3000);
-  }).catch(()=>alert(lines.join('\n')));
+    b.textContent='✓ Kopeeritud!';
+    setTimeout(()=>{b.textContent='📋 Kopeeri nimekiri';},2000);
+  });
 }
 
 function renderCook(){
@@ -399,7 +413,6 @@ function renderCook(){
       <div class="cook-name">${r.name}</div>
     </div>
     <div class="cook-body">
-      <div class="cook-tags">${r.ingredients.slice(0,5).map(it=>`<span class="cook-tag">${it.i}</span>`).join('')}${r.ingredients.length>5?`<span class="cook-tag">+${r.ingredients.length-5}</span>`:''}</div>
       <button class="cook-btn" onclick="openR('${r.id}')">📖 Vaata retsepti →</button>
     </div>
   </div>`;}).join('');
@@ -417,9 +430,8 @@ document.getElementById('rmodal').addEventListener('click',e=>{if(e.target===doc
 document.getElementById('dmodal').addEventListener('click',e=>{if(e.target===document.getElementById('dmodal'))closeD();});
 
 function getFallback(){return[
-  {id:'f1',name:'Seapraad ahjus',cat:'Sealiha',thumb:'',ingredients:[{i:'Seakael',m:'800g'},{i:'Küüslauk',m:'4 küünt'},{i:'Rosmariin',m:'2 oksa'}],steps:['Kuumuta ahi 180°C.','Küpseta 1.5 tundi.']},
-  {id:'f2',name:'Kana curry',cat:'Kana',thumb:'',ingredients:[{i:'Kanafilee',m:'500g'},{i:'Kookospiim',m:'400ml'},{i:'Currykaste',m:'2 sl'}],steps:['Prae kana.','Lisa curry ja kookospiim.','Hauta 20 min.']},
-  {id:'f3',name:'Spaghetti Bolognese',cat:'Pasta',thumb:'',ingredients:[{i:'Spaghetti',m:'400g'},{i:'Hakkliha',m:'500g'},{i:'Tomatid',m:'400g'}],steps:['Prae hakkliha.','Lisa tomatid.','Sega pastaga.']},
+  {id:'f1',name:'Seapraad ahjus',cat:'Sealiha',thumb:'',ingredients:[{i:'Seakael',m:'800g'}],steps:['Küpseta ahjus.']},
+  {id:'f2',name:'Kana curry',cat:'Kana',thumb:'',ingredients:[{i:'Kanafilee',m:'500g'}],steps:['Hauta kookospiimas.']}
 ];}
 
 init();
