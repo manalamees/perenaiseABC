@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Nädala Toiduplanner</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap');
+:root{--green:#2d6a4f;--gl:#95d5b2;--gp:#d8f3dc;--text:#1b1b1b;--muted:#6b705c;--border:#e0e0d0;--white:#fff;--r:14px;--rs:8px}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'DM Sans',sans-serif;background:#fefae0;color:var(--text);min-height:100vh;max-width:480px;margin:0 auto}
+.app{background:var(--white);min-height:100vh;display:flex;flex-direction:column}
+.loading{position:fixed;inset:0;background:var(--green);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:100;color:#fff;text-align:center;padding:2rem}
+.loading-logo{font-family:'Fraunces',serif;font-size:38px;font-weight:700;margin-bottom:6px}
+.loading-sub{font-size:13px;opacity:.7;margin-bottom:2rem}
+.pbar{width:220px;height:5px;background:rgba(255,255,255,.2);border-radius:99px;overflow:hidden;margin-bottom:12px}
+.pfill{height:100%;background:var(--gl);border-radius:99px;transition:width .4s;width:0}
+.pmsg{font-size:13px;opacity:.8}
+.header{background:var(--green);color:#fff;padding:18px 16px 0;position:sticky;top:0;z-index:20}
+.header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.app-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700}
+.hcount{font-size:12px;opacity:.7;margin-top:2px}
+.tabs{display:flex}
+.tab{flex:1;padding:10px 2px;font-size:11px;font-weight:700;cursor:pointer;background:none;border:none;color:rgba(255,255,255,.55);border-bottom:2.5px solid transparent;text-transform:uppercase;letter-spacing:.04em;font-family:'DM Sans',sans-serif}
+.tab.active{color:#fff;border-bottom-color:var(--gl)}
+.content{flex:1;padding:16px}
+.section{display:none}.section.active{display:block}
+.pbar2{display:flex;align-items:center;background:var(--gp);border-radius:var(--r);padding:10px 14px;margin-bottom:14px;gap:10px}
+.pbar2 span{font-size:14px;color:var(--green);font-weight:500;flex:1}
+.pctrl{display:flex;align-items:center;gap:10px}
+.pbtn{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--green);background:var(--white);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--green);font-weight:700}
+.pnum{font-size:20px;font-weight:700;color:var(--green);min-width:24px;text-align:center;font-family:'Fraunces',serif}
+.week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:14px}
+.day-card{background:#f8f8f5;border:1.5px solid var(--border);border-radius:10px;padding:7px 4px;cursor:pointer;min-height:82px;text-align:center}
+.day-card:active{background:var(--gp)}
+.day-card.has-meal{border-color:var(--green);background:var(--gp)}
+.day-name{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:4px;letter-spacing:.04em}
+.day-meal{font-size:10px;color:var(--green);font-weight:600;line-height:1.3}
+.day-empty{font-size:11px;color:#ccc}
+.day-plus{font-size:20px;color:#ddd;margin-top:2px}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap}
+.btn{padding:10px 16px;border-radius:var(--rs);border:1.5px solid var(--border);background:var(--white);cursor:pointer;font-size:14px;color:var(--text);font-weight:500;font-family:'DM Sans',sans-serif}
+.btn:active{background:#f5f5f0}
+.btn-g{background:var(--green);color:#fff;border-color:var(--green)}
+.btn-g:active{background:#1f4d38}
+.sbox{display:flex;gap:8px;margin-bottom:10px}
+.sbox input{flex:1;padding:10px 14px;border-radius:var(--rs);border:1.5px solid var(--border);font-size:14px;background:#f9f9f6;font-family:'DM Sans',sans-serif;outline:none}
+.sbox input:focus{border-color:var(--green)}
+.sbox button{padding:10px 14px;border-radius:var(--rs);border:none;background:var(--green);color:#fff;font-size:14px;cursor:pointer}
+.cats{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.cat-btn{padding:6px 12px;border-radius:99px;border:1.5px solid var(--border);background:var(--white);font-size:12px;cursor:pointer;color:var(--muted);font-weight:500;font-family:'DM Sans',sans-serif;white-space:nowrap}
+.cat-btn.active{background:var(--green);color:#fff;border-color:var(--green)}
+.rcount{font-size:13px;color:var(--muted);margin-bottom:8px}
+.rlist{display:flex;flex-direction:column;gap:8px}
+.rrow{display:flex;align-items:center;gap:12px;background:#f9f9f6;border-radius:var(--r);padding:10px;border:1.5px solid transparent}
+.rrow:active{background:var(--gp)}
+.rthumb{width:60px;height:48px;border-radius:var(--rs);object-fit:cover;background:#eee;flex-shrink:0}
+.rthumb-ph{width:60px;height:48px;border-radius:var(--rs);background:var(--gp);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:24px}
+.rinfo{flex:1;min-width:0}
+.rname{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rcat{font-size:12px;color:var(--muted);margin-top:2px}
+.rbtns{display:flex;flex-direction:column;gap:4px;flex-shrink:0}
+.add-btn{padding:6px 10px;border-radius:6px;background:var(--green);color:#fff;border:none;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500}
+.view-btn{padding:6px 10px;border-radius:6px;background:#f0f0eb;color:var(--text);border:none;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif}
+.cart-hdr{background:var(--gp);border-radius:var(--r);padding:12px 14px;margin-bottom:14px}
+.cart-hdr-t{font-family:'Fraunces',serif;font-size:18px;color:var(--green);font-weight:700}
+.cart-hdr-s{font-size:13px;color:var(--muted);margin-top:2px}
+.slabel{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin:14px 0 8px}
+.citem{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #f0f0eb;cursor:pointer}
+.citem:last-child{border-bottom:none}
+.ccheck{width:24px;height:24px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px}
+.ccheck.done{background:var(--green);border-color:var(--green);color:#fff}
+.cname{flex:1;font-size:14px}
+.cname.done{text-decoration:line-through;color:#bbb}
+.cqty{font-size:13px;color:var(--muted)}
+.copy-bar{background:var(--green);color:#fff;border-radius:var(--r);padding:14px;text-align:center;cursor:pointer;font-size:14px;font-weight:600;margin-top:16px;font-family:'Fraunces',serif}
+.copy-bar:active{background:#1f4d38}
+.cook-day{margin-bottom:12px;border-radius:var(--r);overflow:hidden;border:1.5px solid var(--border)}
+.cook-hdr{background:var(--green);color:#fff;padding:12px 14px}
+.cook-label{font-size:11px;opacity:.7;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.cook-name{font-family:'Fraunces',serif;font-size:16px;font-weight:700;margin-top:2px}
+.cook-body{padding:12px 14px}
+.cook-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.cook-tag{background:var(--gp);color:var(--green);border-radius:99px;padding:4px 10px;font-size:12px;font-weight:500}
+.cook-btn{width:100%;padding:10px;border-radius:var(--rs);border:1.5px solid var(--green);background:var(--white);color:var(--green);font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif}
+.moverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:50;align-items:flex-end;justify-content:center}
+.moverlay.open{display:flex}
+.modal{background:var(--white);border-radius:20px 20px 0 0;width:100%;max-width:480px;max-height:92vh;overflow-y:auto;padding-bottom:24px}
+.mhandle{width:40px;height:4px;background:var(--border);border-radius:99px;margin:14px auto 0}
+.mimg{width:100%;height:200px;object-fit:cover;margin-top:14px}
+.mbody{padding:16px}
+.mcat{font-size:12px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.mtitle{font-family:'Fraunces',serif;font-size:24px;font-weight:700;line-height:1.2;margin-bottom:14px}
+.madd-btn{width:100%;padding:13px;border-radius:var(--rs);border:none;background:var(--green);color:#fff;font-size:15px;font-weight:600;cursor:pointer;font-family:'Fraunces',serif;margin-bottom:16px}
+.ing-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.ing-item{background:#f9f9f6;border-radius:var(--rs);padding:8px 10px}
+.ing-name{font-size:13px;font-weight:600}
+.ing-meas{font-size:12px;color:var(--muted);margin-top:1px}
+.step{display:flex;gap:12px;margin-bottom:12px}
+.step-n{min-width:26px;height:26px;border-radius:50%;background:var(--green);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-family:'Fraunces',serif}
+.step-t{font-size:14px;line-height:1.65;color:#333}
+.mclose-btn{width:calc(100% - 32px);margin:14px 16px 0;padding:12px;border-radius:var(--rs);border:1.5px solid var(--border);background:var(--white);font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--muted)}
+.doverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:60;align-items:flex-end;justify-content:center}
+.doverlay.open{display:flex}
+.dbox{background:var(--white);border-radius:20px 20px 0 0;width:100%;max-width:480px;padding:16px 16px 28px}
+.dtitle{font-family:'Fraunces',serif;font-size:18px;font-weight:700;margin:10px 0 14px}
+.dbtns{display:flex;flex-direction:column;gap:6px}
+.dpick{padding:13px 14px;border-radius:var(--rs);border:1.5px solid var(--border);background:#f9f9f6;cursor:pointer;text-align:left;font-size:14px;font-weight:500;font-family:'DM Sans',sans-serif;display:flex;justify-content:space-between;align-items:center}
+.dpick:active{background:var(--gp)}
+.dcur{font-size:12px;color:var(--green)}
+.dcancel{width:100%;padding:12px;margin-top:10px;border-radius:var(--rs);border:none;background:#f0f0eb;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--muted)}
+.empty{text-align:center;padding:3rem 1rem;color:var(--muted)}
+.empty-icon{font-size:42px;margin-bottom:12px}
+.notice{background:var(--gp);border-radius:var(--rs);padding:10px 14px;font-size:13px;color:var(--green);margin-bottom:12px}
+</style>
+</head>
+<body>
+
+<div class="loading" id="loading">
+  <div class="loading-logo">🍽️ Toiduplanner</div>
+  <div class="loading-sub">Laen retsepte GitHubist...</div>
+  <div class="pbar"><div class="pfill" id="pfill"></div></div>
+  <div class="pmsg" id="pmsg">Ühendun...</div>
+</div>
+
+<div class="app" id="app" style="display:none">
+  <div class="header">
+    <div class="header-top">
+      <div>
+        <div class="app-title">🍽️ Toiduplanner</div>
+        <div class="hcount" id="hcount">Laadimine...</div>
+      </div>
+    </div>
+    <div class="tabs">
+      <button class="tab active" onclick="showTab('menu')">Menüü</button>
+      <button class="tab" onclick="showTab('recipes')">Retseptid</button>
+      <button class="tab" onclick="showTab('cart')">Ostukorv</button>
+      <button class="tab" onclick="showTab('cook')">Küpseta</button>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="section active" id="tab-menu">
+      <div class="pbar2">
+        <span>👨‍👩‍👧‍👦 Pereliikmeid</span>
+        <div class="pctrl">
+          <button class="pbtn" onclick="changeP(-1)">−</button>
+          <span class="pnum" id="pnum">4</span>
+          <button class="pbtn" onclick="changeP(1)">+</button>
+        </div>
+      </div>
+      <div class="week-grid" id="week-grid"></div>
+      <div class="btn-row">
+        <button class="btn btn-g" onclick="showTab('cart')">🛒 Ostukorv</button>
+        <button class="btn btn-g" onclick="showTab('recipes')">🔍 Retseptid</button>
+        <button class="btn" onclick="clearMenu()">🗑️ Tühjenda</button>
+      </div>
+    </div>
+
+    <div class="section" id="tab-recipes">
+      <div class="sbox">
+        <input type="text" id="sinput" placeholder="Otsi retsepti..." oninput="filterR()" />
+        <button onclick="filterR()">🔍</button>
+      </div>
+      <div class="cats" id="cats"></div>
+      <div class="rcount" id="rcount"></div>
+      <div class="rlist" id="rlist"></div>
+    </div>
+
+    <div class="section" id="tab-cart"><div id="cart"></div></div>
+    <div class="section" id="tab-cook"><div id="cook"></div></div>
+  </div>
+</div>
+
+<div class="moverlay" id="rmodal">
+  <div class="modal">
+    <div class="mhandle"></div>
+    <img class="mimg" id="mimg" src="" alt="" onerror="this.style.display='none'" />
+    <div class="mbody">
+      <div class="mcat" id="mcat"></div>
+      <div class="mtitle" id="mtitle"></div>
+      <button class="madd-btn" id="madd">+ Lisa menüüsse</button>
+      <div class="slabel">Koostisained</div>
+      <div class="ing-grid" id="mings"></div>
+      <div class="slabel">Valmistamine</div>
+      <div id="msteps"></div>
+    </div>
+    <button class="mclose-btn" onclick="closeR()">Sulge</button>
+  </div>
+</div>
+
+<div class="doverlay" id="dmodal">
+  <div class="dbox">
+    <div class="mhandle" style="margin:0 auto 0"></div>
+    <div class="dtitle" id="dtitle">Vali päev</div>
+    <div class="dbtns" id="dbtns"></div>
+    <button class="dcancel" onclick="closeD()">Tühista</button>
+  </div>
+</div>
+
+<script>
+// ── KONFIGURATSIOON ────────────────────────────────────────────────────────
+// MUUDA SEDA: sinu GitHub kasutajanimi ja repo nimi
+const GITHUB_USER = 'manalamees';
+const GITHUB_REPO = 'toiduplanner';
+const GITHUB_FILE = 'recipes.json';
+const RECIPES_URL = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${GITHUB_FILE}`;
+// ──────────────────────────────────────────────────────────────────────────
+
+const DAYS=['Esmaspäev','Teisipäev','Kolmapäev','Neljapäev','Reede','Laupäev','Pühapäev'];
+const SHORT=['E','T','K','N','R','L','P'];
+const EMOJI={Sealiha:'🐷',Kana:'🍗',Pasta:'🍝',Pitsa:'🍕',Supid:'🍲',Veiseliha:'🥩',Hommikusöök:'🍳',Vegetaarne:'🥗',Lambaliha:'🐑',Mereannid:'🐟'};
+
+let persons=4,menu={},checked=new Set(),RECIPES=[],activeCat='Kõik',pending=null;
+
+const sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+const ld=k=>{try{const d=localStorage.getItem(k);return d?JSON.parse(d):null}catch(e){return null}};
+const prog=(p,m)=>{document.getElementById('pfill').style.width=p+'%';document.getElementById('pmsg').textContent=m};
+
+async function init(){
+  const sp=ld('tp_persons'),sm=ld('tp_menu');
+  if(sp)persons=sp;if(sm)menu=sm;
+  document.getElementById('pnum').textContent=persons;
+
+  // Proovi GitHubist laadida
+  prog(20,'Laen retsepte GitHubist...');
+  try{
+    const r=await fetch(RECIPES_URL+'?t='+Date.now());
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    prog(70,'Töötlen retsepte...');
+    RECIPES=await r.json();
+    prog(100,'Valmis!');
+    sv('tp_recipes_cache',RECIPES);
+  }catch(e){
+    prog(50,'GitHub ei vasta, kasutan vahemälu...');
+    const cache=ld('tp_recipes_cache');
+    if(cache&&cache.length>0){
+      RECIPES=cache;
+    }else{
+      prog(80,'Kasutan varuandmeid...');
+      RECIPES=getFallback();
+    }
+  }
+
+  setTimeout(boot,300);
+}
+
+function boot(){
+  document.getElementById('loading').style.display='none';
+  document.getElementById('app').style.display='flex';
+  document.getElementById('hcount').textContent=`${RECIPES.length} retsepti eesti keeles`;
+  renderAll();
+}
+
+function renderAll(){renderWeek();renderCats();filterR();}
+
+function renderWeek(){
+  document.getElementById('week-grid').innerHTML=DAYS.map((d,i)=>{
+    const m=menu[i];
+    return`<div class="day-card${m?' has-meal':''}" onclick="dayClick(${i})">
+      <div class="day-name">${SHORT[i]}</div>
+      ${m?`<div class="day-meal">${m.name}</div>`:`<div class="day-empty">Lisa</div><div class="day-plus">+</div>`}
+    </div>`;
+  }).join('');
+}
+
+function renderCats(){
+  const cats=['Kõik',...new Set(RECIPES.map(r=>r.cat))];
+  document.getElementById('cats').innerHTML=cats.map(c=>
+    `<button class="cat-btn${activeCat===c?' active':''}" onclick="setCat('${c}')">${EMOJI[c]||''} ${c}</button>`
+  ).join('');
+}
+
+function setCat(c){activeCat=c;renderCats();filterR();}
+
+function filterR(){
+  const q=(document.getElementById('sinput').value||'').toLowerCase();
+  const f=RECIPES.filter(r=>
+    (activeCat==='Kõik'||r.cat===activeCat)&&
+    (!q||r.name.toLowerCase().includes(q)||
+     r.ingredients.some(it=>it.i.toLowerCase().includes(q)))
+  );
+  document.getElementById('rcount').textContent=`${f.length} retsepti`;
+  document.getElementById('rlist').innerHTML=f.length?f.map(r=>`
+    <div class="rrow">
+      ${r.thumb?`<img class="rthumb" src="${r.thumb}/preview" alt="${r.name}" loading="lazy" onerror="this.style.display='none'" />`:`<div class="rthumb-ph">${EMOJI[r.cat]||'🍽️'}</div>`}
+      <div class="rinfo">
+        <div class="rname">${r.name}</div>
+        <div class="rcat">${r.cat} · ${r.ingredients.length} koostisainet</div>
+      </div>
+      <div class="rbtns">
+        <button class="add-btn" onclick="startAdd('${r.id}')">+ Lisa</button>
+        <button class="view-btn" onclick="openR('${r.id}')">Vaata</button>
+      </div>
+    </div>`).join('')
+  :'<div class="empty"><div class="empty-icon">🔍</div>Retsepte ei leitud</div>';
+}
+
+function dayClick(i){if(pending){assign(i,pending);pending=null;return;}openDayFor(i);}
+
+function openDayFor(forDay){
+  const isAdd=forDay===undefined;
+  document.getElementById('dtitle').textContent=isAdd?`Millal teeme: ${pending?.name}?`:(menu[forDay]?`Muuda ${DAYS[forDay]}`:'Vali päev');
+  document.getElementById('dbtns').innerHTML=DAYS.map((d,i)=>
+    `<button class="dpick" onclick="pickD(${i})">
+      <span>${d}</span>
+      ${menu[i]?`<span class="dcur">✓ ${menu[i].name.slice(0,16)}</span>`:''}
+    </button>`
+  ).join('')+(!isAdd&&menu[forDay]?`<button class="dpick" style="color:#c0392b" onclick="removeD(${forDay})">🗑️ Eemalda ${DAYS[forDay]}</button>`:'');
+  document.getElementById('dmodal').classList.add('open');
+}
+
+function startAdd(id){pending=RECIPES.find(r=>r.id===id);openDayFor();}
+function pickD(i){if(pending){assign(i,pending);pending=null;}closeD();}
+function removeD(i){delete menu[i];sv('tp_menu',menu);renderWeek();closeD();}
+function closeD(){document.getElementById('dmodal').classList.remove('open');pending=null;}
+function assign(i,r){menu[i]=r;sv('tp_menu',menu);renderWeek();closeD();closeR();}
+function changeP(d){persons=Math.max(1,Math.min(12,persons+d));document.getElementById('pnum').textContent=persons;sv('tp_persons',persons);}
+function clearMenu(){if(confirm('Tühjenda kogu nädala menüü?')){menu={};checked.clear();sv('tp_menu',menu);renderWeek();}}
+
+function openR(id){
+  const r=RECIPES.find(x=>x.id===id);if(!r)return;
+  document.getElementById('mimg').src=r.thumb||'';
+  document.getElementById('mimg').style.display=r.thumb?'block':'none';
+  document.getElementById('mcat').textContent=(EMOJI[r.cat]||'')+' '+r.cat;
+  document.getElementById('mtitle').textContent=r.name;
+  document.getElementById('madd').onclick=()=>{pending=r;openDayFor();};
+  document.getElementById('mings').innerHTML=r.ingredients.map(it=>
+    `<div class="ing-item"><div class="ing-name">${it.i}</div><div class="ing-meas">${it.m}</div></div>`
+  ).join('');
+  document.getElementById('msteps').innerHTML=(r.steps||[]).map((s,i)=>
+    `<div class="step"><div class="step-n">${i+1}</div><div class="step-t">${s}</div></div>`
+  ).join('')||'<div style="color:#bbb;font-size:14px">Juhised puuduvad</div>';
+  document.getElementById('rmodal').classList.add('open');
+}
+function closeR(){document.getElementById('rmodal').classList.remove('open');}
+
+function renderCart(){
+  const days=Object.keys(menu);
+  const el=document.getElementById('cart');
+  if(!days.length){el.innerHTML='<div class="empty"><div class="empty-icon">🛒</div>Menüü on tühi.<br>Lisa esmalt retseptid.</div>';return;}
+  const merged={};
+  days.forEach(i=>{menu[i].ingredients.forEach(it=>{const k=it.i.toLowerCase();if(!merged[k])merged[k]={name:it.i,qtys:[]};if(it.m)merged[k].qtys.push(it.m);});});
+  const items=Object.values(merged);
+  const done=items.filter(it=>checked.has(it.name.toLowerCase())).length;
+  el.innerHTML=`
+    <div class="cart-hdr">
+      <div class="cart-hdr-t">🛒 Ostukorv</div>
+      <div class="cart-hdr-s">${done}/${items.length} ostetud · ${persons} inimesele</div>
+    </div>
+    <div class="notice">Klõpsa tootel kui ostetud ✓</div>
+    ${items.map(it=>{const k=it.name.toLowerCase();const ok=checked.has(k);return`<div class="citem" onclick="tog('${k}')">
+      <div class="ccheck${ok?' done':''}">${ok?'✓':''}</div>
+      <div class="cname${ok?' done':''}">${it.name}</div>
+      <div class="cqty">${it.qtys.slice(0,2).join(', ')}</div>
+    </div>`;}).join('')}
+    <div class="copy-bar" id="cpbar" onclick="copyL()">📋 Kopeeri nimekiri</div>
+    <button class="btn" style="width:100%;margin-top:8px" onclick="checked.clear();renderCart()">↺ Lähtesta märgistus</button>`;
+}
+
+function tog(k){checked.has(k)?checked.delete(k):checked.add(k);renderCart();}
+
+function copyL(){
+  const days=Object.keys(menu);
+  const merged={};
+  days.forEach(i=>{menu[i].ingredients.forEach(it=>{const k=it.i.toLowerCase();if(!merged[k])merged[k]={name:it.i,qtys:[]};if(it.m)merged[k].qtys.push(it.m);});});
+  const lines=['🛒 OSTUKORV',''];
+  Object.values(merged).forEach(it=>lines.push(`• ${it.name}${it.qtys.length?' — '+it.qtys.slice(0,2).join(', '):''}`));
+  lines.push('','📅 Nädala menüü:');
+  DAYS.forEach((d,i)=>{if(menu[i])lines.push(`${d}: ${menu[i].name}`);});
+  navigator.clipboard.writeText(lines.join('\n')).then(()=>{
+    const b=document.getElementById('cpbar');
+    b.textContent='✓ Kopeeritud! Kleebi WhatsAppi.';b.style.background='#1f4d38';
+    setTimeout(()=>{b.textContent='📋 Kopeeri nimekiri';b.style.background='';},3000);
+  }).catch(()=>alert(lines.join('\n')));
+}
+
+function renderCook(){
+  const days=Object.keys(menu);
+  const el=document.getElementById('cook');
+  if(!days.length){el.innerHTML='<div class="empty"><div class="empty-icon">👨‍🍳</div>Menüü on tühi.</div>';return;}
+  el.innerHTML=days.map(i=>{const r=menu[i];return`<div class="cook-day">
+    <div class="cook-hdr">
+      <div class="cook-label">${DAYS[i]}</div>
+      <div class="cook-name">${r.name}</div>
+    </div>
+    <div class="cook-body">
+      <div class="cook-tags">${r.ingredients.slice(0,5).map(it=>`<span class="cook-tag">${it.i}</span>`).join('')}${r.ingredients.length>5?`<span class="cook-tag">+${r.ingredients.length-5}</span>`:''}</div>
+      <button class="cook-btn" onclick="openR('${r.id}')">📖 Vaata retsepti →</button>
+    </div>
+  </div>`;}).join('');
+}
+
+function showTab(n){
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',['menu','recipes','cart','cook'][i]===n));
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('tab-'+n).classList.add('active');
+  if(n==='cart')renderCart();
+  if(n==='cook')renderCook();
+}
+
+document.getElementById('rmodal').addEventListener('click',e=>{if(e.target===document.getElementById('rmodal'))closeR();});
+document.getElementById('dmodal').addEventListener('click',e=>{if(e.target===document.getElementById('dmodal'))closeD();});
+
+function getFallback(){return[
+  {id:'f1',name:'Seapraad ahjus',cat:'Sealiha',thumb:'',ingredients:[{i:'Seakael',m:'800g'},{i:'Küüslauk',m:'4 küünt'},{i:'Rosmariin',m:'2 oksa'}],steps:['Kuumuta ahi 180°C.','Küpseta 1.5 tundi.']},
+  {id:'f2',name:'Kana curry',cat:'Kana',thumb:'',ingredients:[{i:'Kanafilee',m:'500g'},{i:'Kookospiim',m:'400ml'},{i:'Currykaste',m:'2 sl'}],steps:['Prae kana.','Lisa curry ja kookospiim.','Hauta 20 min.']},
+  {id:'f3',name:'Spaghetti Bolognese',cat:'Pasta',thumb:'',ingredients:[{i:'Spaghetti',m:'400g'},{i:'Hakkliha',m:'500g'},{i:'Tomatid',m:'400g'}],steps:['Prae hakkliha.','Lisa tomatid.','Sega pastaga.']},
+];}
+
+init();
+</script>
+</body>
+</html>
