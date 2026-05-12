@@ -4,7 +4,7 @@
     "nameEn": "Pork Roast",
     "name": "Seapraad ahjus",
     "cat": "Sealiha",
-    "thumb": "images/p1.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/sytuqu1511553755.jpg",
     "ingredients": [
       {
         "i": "Seakael",
@@ -48,7 +48,7 @@
     "nameEn": "Pork Wok Noodles",
     "name": "Sealiha wok nuudlitega",
     "cat": "Sealiha",
-    "thumb": "images/p2.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/1520084413.jpg",
     "ingredients": [
       {
         "i": "Seafilee",
@@ -97,7 +97,7 @@
     "nameEn": "Pork with Potatoes",
     "name": "Sealiha kartulitega ahjus",
     "cat": "Sealiha",
-    "thumb": "images/p3.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/qtqvys1468573168.jpg",
     "ingredients": [
       {
         "i": "Seakotletid",
@@ -141,7 +141,7 @@
     "nameEn": "Minced Meat Sauce",
     "name": "Hakklihakaste pastaga",
     "cat": "Sealiha",
-    "thumb": "images/p4.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/sutysw1468247559.jpg",
     "ingredients": [
       {
         "i": "Seahakkliha",
@@ -190,7 +190,7 @@
     "nameEn": "Pork Goulash",
     "name": "Sealiha guljašš",
     "cat": "Sealiha",
-    "thumb": "images/p5.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/sqrtwu1511721265.jpg",
     "ingredients": [
       {
         "i": "Sealiha",
@@ -239,7 +239,7 @@
     "nameEn": "Pork Schnitzel",
     "name": "Sealiha šnitsel",
     "cat": "Sealiha",
-    "thumb": "images/p6.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/sytuqu1511553755.jpg",
     "ingredients": [
       {
         "i": "Seakotlet",
@@ -283,7 +283,7 @@
     "nameEn": "Pork Ribs BBQ",
     "name": "Seakarbonaad BBQ kastmega",
     "cat": "Sealiha",
-    "thumb": "images/p7.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/qtqvys1468573168.jpg",
     "ingredients": [
       {
         "i": "Seakarbonaad",
@@ -323,7 +323,7 @@
     "nameEn": "Pork Meatballs",
     "name": "Sealiha lihapallid",
     "cat": "Sealiha",
-    "thumb": "images/p8.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/sytuqu1511553755.jpg",
     "ingredients": [
       {
         "i": "Seahakkliha",
@@ -367,7 +367,7 @@
     "nameEn": "Lemon Chicken",
     "name": "Kanafilee ahjus sidruniga",
     "cat": "Kana",
-    "thumb": "images/k1.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/xvrrux1511783685.jpg",
     "ingredients": [
       {
         "i": "Kanafilee",
@@ -406,7 +406,7 @@
     "nameEn": "Chicken Avocado Salad",
     "name": "Kanasalat avokaadoga",
     "cat": "Kana",
-    "thumb": "images/k2.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/wrssvt1511556563.jpg",
     "ingredients": [
       {
         "i": "Kana rinnatükk",
@@ -449,7 +449,7 @@
     "nameEn": "Chicken Curry",
     "name": "Kana curry",
     "cat": "Kana",
-    "thumb": "images/k3.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/tkxquw1628771028.jpg",
     "ingredients": [
       {
         "i": "Kana rinnatükk",
@@ -497,7 +497,7 @@
     "nameEn": "Caesar Salad",
     "name": "Kana Caesar salat",
     "cat": "Kana",
-    "thumb": "images/k4.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/uqusqy1511180687.jpg",
     "ingredients": [
       {
         "i": "Kana rinnatükk",
@@ -537,7 +537,7 @@
     "nameEn": "Chicken Wrap",
     "name": "Kana wrap",
     "cat": "Kana",
-    "thumb": "images/k5.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/ryppsv1511815505.jpg",
     "ingredients": [
       {
         "i": "Kanafilee",
@@ -582,7 +582,7 @@
     "nameEn": "Chicken Noodle Soup",
     "name": "Kananuudlisupp",
     "cat": "Kana",
-    "thumb": "images/k6.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/syqypv1468558711.jpg",
     "ingredients": [
       {
         "i": "Kana koib",
@@ -631,7 +631,7 @@
     "nameEn": "Chicken Stir Fry",
     "name": "Kana wok köögiviljadega",
     "cat": "Kana",
-    "thumb": "images/k7.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/xvrrux1511783685.jpg",
     "ingredients": [
       {
         "i": "Kanafilee",
@@ -680,7 +680,7 @@
     "nameEn": "Chicken Soup",
     "name": "Kanasupp",
     "cat": "Kana",
-    "thumb": "images/k8.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/syqypv1468558711.jpg",
     "ingredients": [
       {
         "i": "Terve kana",
@@ -725,7 +725,7 @@
     "nameEn": "Butter Chicken",
     "name": "Võikana",
     "cat": "Kana",
-    "thumb": "images/k9.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/tkxquw1628771028.jpg",
     "ingredients": [
       {
         "i": "Kanafilee",
@@ -774,7 +774,7 @@
     "nameEn": "Spaghetti Bolognese",
     "name": "Spaghetti Bolognese",
     "cat": "Pasta",
-    "thumb": "images/pa1.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/sutysw1468247559.jpg",
     "ingredients": [
       {
         "i": "Spaghetti",
@@ -832,7 +832,7 @@
     "nameEn": "Pasta Carbonara",
     "name": "Pasta Carbonara",
     "cat": "Pasta",
-    "thumb": "images/pa2.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/llcbn01574260722.jpg",
     "ingredients": [
       {
         "i": "Spaghetti",
@@ -878,7 +878,7 @@
     "nameEn": "Pasta Arrabiata",
     "name": "Pasta Arrabiata",
     "cat": "Pasta",
-    "thumb": "images/pa3.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg",
     "ingredients": [
       {
         "i": "Penne pasta",
@@ -923,7 +923,7 @@
     "nameEn": "Lasagne",
     "name": "Lasanje",
     "cat": "Pasta",
-    "thumb": "images/pa4.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/wtsvxx1511721132.jpg",
     "ingredients": [
       {
         "i": "Lasanje lehed",
@@ -972,7 +972,7 @@
     "nameEn": "Aglio e Olio",
     "name": "Pasta küüslaugu ja õliga",
     "cat": "Pasta",
-    "thumb": "images/pa5.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg",
     "ingredients": [
       {
         "i": "Spaghetti",
@@ -1013,7 +1013,7 @@
     "nameEn": "Salmon Pasta",
     "name": "Pasta lõhega kreemkastmes",
     "cat": "Pasta",
-    "thumb": "images/pa6.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/ysxwuq1487323065.jpg",
     "ingredients": [
       {
         "i": "Penne",
@@ -1058,7 +1058,7 @@
     "nameEn": "Pasta Pesto",
     "name": "Pasta pestoga",
     "cat": "Pasta",
-    "thumb": "images/pa7.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg",
     "ingredients": [
       {
         "i": "Pasta",
@@ -1099,7 +1099,7 @@
     "nameEn": "Mac and Cheese",
     "name": "Makaronid juustukastmega",
     "cat": "Pasta",
-    "thumb": "images/pa8.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/llcbn01574260722.jpg",
     "ingredients": [
       {
         "i": "Makaronid",
@@ -1144,7 +1144,7 @@
     "nameEn": "Pasta Primavera",
     "name": "Köögiviljasuvi pasta",
     "cat": "Pasta",
-    "thumb": "images/pa9.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg",
     "ingredients": [
       {
         "i": "Pasta",
@@ -1193,7 +1193,7 @@
     "nameEn": "Margherita Pizza",
     "name": "Margherita pitsa",
     "cat": "Pitsa",
-    "thumb": "images/pi1.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/x0lk931587671540.jpg",
     "ingredients": [
       {
         "i": "Pitsa tainas",
@@ -1234,7 +1234,7 @@
     "nameEn": "Pepperoni Pizza",
     "name": "Pepperoni pitsa",
     "cat": "Pitsa",
-    "thumb": "images/pi2.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/rqvwxt1511384809.jpg",
     "ingredients": [
       {
         "i": "Pitsa tainas",
@@ -1271,7 +1271,7 @@
     "nameEn": "BBQ Chicken Pizza",
     "name": "BBQ kanafilee pitsa",
     "cat": "Pitsa",
-    "thumb": "images/pi3.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/xrvwux1511783685.jpg",
     "ingredients": [
       {
         "i": "Pitsa tainas",
@@ -1311,7 +1311,7 @@
     "nameEn": "Four Cheese Pizza",
     "name": "4 juustu pitsa",
     "cat": "Pitsa",
-    "thumb": "images/pi4.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/x0lk931587671540.jpg",
     "ingredients": [
       {
         "i": "Pitsa tainas",
@@ -1352,7 +1352,7 @@
     "nameEn": "Mushroom Ham Pizza",
     "name": "Seene ja sink pitsa",
     "cat": "Pitsa",
-    "thumb": "images/pi5.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/rqvwxt1511384809.jpg",
     "ingredients": [
       {
         "i": "Pitsa tainas",
@@ -1393,7 +1393,7 @@
     "nameEn": "Tuna Pizza",
     "name": "Tuunikala pitsa",
     "cat": "Pitsa",
-    "thumb": "images/pi6.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/x0lk931587671540.jpg",
     "ingredients": [
       {
         "i": "Pitsa tainas",
@@ -1438,7 +1438,7 @@
     "nameEn": "Tomato Soup",
     "name": "Tomatosupp",
     "cat": "Supid",
-    "thumb": "images/s1.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/soqwvv1487349345.jpg",
     "ingredients": [
       {
         "i": "Tomatid",
@@ -1487,7 +1487,7 @@
     "nameEn": "Chicken Soup",
     "name": "Kanasupp vermišelliga",
     "cat": "Supid",
-    "thumb": "images/s2.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/syqypv1468558711.jpg",
     "ingredients": [
       {
         "i": "Kana rinnatükk",
@@ -1536,7 +1536,7 @@
     "nameEn": "Pea Soup",
     "name": "Hernesupp sealihaga",
     "cat": "Supid",
-    "thumb": "images/s3.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/soqwvv1487349345.jpg",
     "ingredients": [
       {
         "i": "Kuivatatud herned",
@@ -1582,7 +1582,7 @@
     "nameEn": "Mushroom Soup",
     "name": "Seenesupp koorega",
     "cat": "Supid",
-    "thumb": "images/s4.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/soqwvv1487349345.jpg",
     "ingredients": [
       {
         "i": "Šampinjonid",
@@ -1631,7 +1631,7 @@
     "nameEn": "Lentil Soup",
     "name": "Läätsesup",
     "cat": "Supid",
-    "thumb": "images/s5.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/soqwvv1487349345.jpg",
     "ingredients": [
       {
         "i": "Punased läätsed",
@@ -1683,7 +1683,7 @@
     "nameEn": "Borscht",
     "name": "Borš",
     "cat": "Supid",
-    "thumb": "images/s6.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/soqwvv1487349345.jpg",
     "ingredients": [
       {
         "i": "Veiseliha",
@@ -1732,7 +1732,7 @@
     "nameEn": "Potato Soup",
     "name": "Kartulisupp",
     "cat": "Supid",
-    "thumb": "images/s7.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/soqwvv1487349345.jpg",
     "ingredients": [
       {
         "i": "Kartul",
@@ -1781,7 +1781,7 @@
     "nameEn": "Fish Soup",
     "name": "Kalasupp",
     "cat": "Supid",
-    "thumb": "images/s8.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/soqwvv1487349345.jpg",
     "ingredients": [
       {
         "i": "Lõhefilee",
@@ -1829,7 +1829,7 @@
     "nameEn": "Beef Stew",
     "name": "Veiseliha hautis",
     "cat": "Veiseliha",
-    "thumb": "images/v1.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/uyqrrv1511615874.jpg",
     "ingredients": [
       {
         "i": "Veiseliha",
@@ -1882,7 +1882,7 @@
     "nameEn": "Beef Burger",
     "name": "Veiseliha burger",
     "cat": "Veiseliha",
-    "thumb": "images/v2.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/uyqrrv1511615874.jpg",
     "ingredients": [
       {
         "i": "Veisehakkliha",
@@ -1931,7 +1931,7 @@
     "nameEn": "Beef Steak",
     "name": "Veisepraad",
     "cat": "Veiseliha",
-    "thumb": "images/v3.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/uyqrrv1511615874.jpg",
     "ingredients": [
       {
         "i": "Veisepraad",
@@ -1972,7 +1972,7 @@
     "nameEn": "Beef Goulash",
     "name": "Veiseliha guljašš",
     "cat": "Veiseliha",
-    "thumb": "images/v4.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/uyqrrv1511615874.jpg",
     "ingredients": [
       {
         "i": "Veiseliha",
@@ -2022,7 +2022,7 @@
     "nameEn": "Pancakes",
     "name": "Pannkoogid",
     "cat": "Hommikusöök",
-    "thumb": "images/hom1.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/rwuyqx1511383174.jpg",
     "ingredients": [
       {
         "i": "Jahu",
@@ -2063,7 +2063,7 @@
     "nameEn": "Omelette",
     "name": "Omlett köögiviljadega",
     "cat": "Hommikusöök",
-    "thumb": "images/hom2.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/rwuyqx1511383174.jpg",
     "ingredients": [
       {
         "i": "Munad",
@@ -2108,7 +2108,7 @@
     "nameEn": "French Toast",
     "name": "Prantsuse röstsai",
     "cat": "Hommikusöök",
-    "thumb": "images/hom3.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/rwuyqx1511383174.jpg",
     "ingredients": [
       {
         "i": "Sai",
@@ -2151,7 +2151,7 @@
     "nameEn": "Estonian Minced Meat Sauce with Potatoes",
     "name": "Hakklihakaste ja kartul",
     "cat": "Eesti kodused",
-    "thumb": "images/ee1.jpg",
+    "thumb": "https://raw.githubusercontent.com/manalamees/perenaiseABC/main/ee1.jpg",
     "ingredients": [
       {
         "i": "Kartul",
@@ -2201,7 +2201,7 @@
     "nameEn": "Cabbage Stew with Minced Meat",
     "name": "Kapsahautis hakklihaga",
     "cat": "Eesti kodused",
-    "thumb": "images/ee2.jpg",
+    "thumb": "https://raw.githubusercontent.com/manalamees/perenaiseABC/main/ee2.jpg",
     "ingredients": [
       {
         "i": "Valge peakapsas",
@@ -2250,7 +2250,7 @@
     "nameEn": "Estonian Vegetable and Meat Stew",
     "name": "Ühepajatoit",
     "cat": "Eesti kodused",
-    "thumb": "images/ee3.jpg",
+    "thumb": "https://raw.githubusercontent.com/manalamees/perenaiseABC/main/ee3.jpg",
     "ingredients": [
       {
         "i": "Kartul",
@@ -2299,7 +2299,7 @@
     "nameEn": "Mashed Potatoes with Minced Meat Sauce",
     "name": "Kartulipuder ja hakklihakaste",
     "cat": "Eesti kodused",
-    "thumb": "images/ee4.jpg",
+    "thumb": "https://raw.githubusercontent.com/manalamees/perenaiseABC/main/ee4.jpg",
     "ingredients": [
       {
         "i": "Kartul",
@@ -2348,7 +2348,7 @@
     "nameEn": "Meatball Soup",
     "name": "Frikadellisupp",
     "cat": "Eesti kodused",
-    "thumb": "images/ee5.jpg",
+    "thumb": "https://raw.githubusercontent.com/manalamees/perenaiseABC/main/ee5.jpg",
     "ingredients": [
       {
         "i": "Frikadellid",
@@ -2397,7 +2397,7 @@
     "nameEn": "Solyanka",
     "name": "Seljanka",
     "cat": "Eesti kodused",
-    "thumb": "images/ee6.jpg",
+    "thumb": "https://raw.githubusercontent.com/manalamees/perenaiseABC/main/ee6.jpg",
     "ingredients": [
       {
         "i": "Suitsuvorst või sink",
@@ -2450,7 +2450,7 @@
     "nameEn": "Mulgi Porridge",
     "name": "Mulgipuder",
     "cat": "Eesti kodused",
-    "thumb": "images/ee7.jpg",
+    "thumb": "https://raw.githubusercontent.com/manalamees/perenaiseABC/main/ee7.jpg",
     "ingredients": [
       {
         "i": "Kartul",
@@ -2491,7 +2491,7 @@
     "nameEn": "Blood Sausage with Potatoes",
     "name": "Verivorst kartuliga",
     "cat": "Eesti kodused",
-    "thumb": "images/ee8.jpg",
+    "thumb": "https://raw.githubusercontent.com/manalamees/perenaiseABC/main/ee8.jpg",
     "ingredients": [
       {
         "i": "Verivorstid",
@@ -2532,7 +2532,7 @@
     "nameEn": "Oven Potatoes with Meat",
     "name": "Ahjukartul lihaga",
     "cat": "Eesti kodused",
-    "thumb": "images/ee9.jpg",
+    "thumb": "https://raw.githubusercontent.com/manalamees/perenaiseABC/main/ee9.jpg",
     "ingredients": [
       {
         "i": "Kartul",
@@ -2581,7 +2581,7 @@
     "nameEn": "Chicken Sauce with Rice",
     "name": "Kanakaste riisiga",
     "cat": "Kiired argitoidud",
-    "thumb": "images/ki1.jpg",
+    "thumb": "https://raw.githubusercontent.com/manalamees/perenaiseABC/main/ki1.jpg",
     "ingredients": [
       {
         "i": "Kanafilee",
@@ -2630,7 +2630,7 @@
     "nameEn": "Macaroni with Minced Meat",
     "name": "Makaronid hakklihaga",
     "cat": "Kiired argitoidud",
-    "thumb": "images/ki2.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/sutysw1468247559.jpg",
     "ingredients": [
       {
         "i": "Makaronid",
@@ -2674,7 +2674,7 @@
     "nameEn": "Buckwheat with Minced Meat",
     "name": "Tatar hakklihaga",
     "cat": "Kiired argitoidud",
-    "thumb": "images/ki3.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/sutysw1468247559.jpg",
     "ingredients": [
       {
         "i": "Tatar",
@@ -2718,7 +2718,7 @@
     "nameEn": "Ham and Cheese Omelette",
     "name": "Omlett singi ja juustuga",
     "cat": "Kiired argitoidud",
-    "thumb": "images/ki4.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/rwuyqx1511383174.jpg",
     "ingredients": [
       {
         "i": "Munad",
@@ -2758,7 +2758,7 @@
     "nameEn": "Chicken Lavash Roll",
     "name": "Lavaširull kanaga",
     "cat": "Kiired argitoidud",
-    "thumb": "images/ki5.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/ryppsv1511815505.jpg",
     "ingredients": [
       {
         "i": "Lavašš",
@@ -2802,7 +2802,7 @@
     "nameEn": "Fried Potatoes with Egg",
     "name": "Praetud kartul munaga",
     "cat": "Kiired argitoidud",
-    "thumb": "images/ki6.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/rwuyqx1511383174.jpg",
     "ingredients": [
       {
         "i": "Keedukartul või kartul",
@@ -2842,7 +2842,7 @@
     "nameEn": "Cutlets with Potatoes",
     "name": "Kotletid kartuliga",
     "cat": "Kiired argitoidud",
-    "thumb": "images/ki7.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/sytuqu1511553755.jpg",
     "ingredients": [
       {
         "i": "Hakkliha",
@@ -2886,7 +2886,7 @@
     "nameEn": "Potato and Minced Meat Casserole",
     "name": "Kartuli-hakklihavorm",
     "cat": "Odavamad pere söögid",
-    "thumb": "images/od1.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/qtqvys1468573168.jpg",
     "ingredients": [
       {
         "i": "Kartul",
@@ -2932,7 +2932,7 @@
     "nameEn": "Rice and Chicken Casserole",
     "name": "Riisi-kanavorm",
     "cat": "Odavamad pere söögid",
-    "thumb": "images/od2.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/xvrrux1511783685.jpg",
     "ingredients": [
       {
         "i": "Riis",
@@ -2977,7 +2977,7 @@
     "nameEn": "Macaroni Casserole",
     "name": "Makaronivorm",
     "cat": "Odavamad pere söögid",
-    "thumb": "images/od3.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/llcbn01574260722.jpg",
     "ingredients": [
       {
         "i": "Makaronid",
@@ -3022,7 +3022,7 @@
     "nameEn": "Bean Soup",
     "name": "Oasupp",
     "cat": "Odavamad pere söögid",
-    "thumb": "images/od4.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/soqwvv1487349345.jpg",
     "ingredients": [
       {
         "i": "Kuivatatud oad või konservuba",
@@ -3066,7 +3066,7 @@
     "nameEn": "Lentil Stew",
     "name": "Läätsehautis",
     "cat": "Odavamad pere söögid",
-    "thumb": "images/od5.jpg",
+    "thumb": "https://raw.githubusercontent.com/manalamees/perenaiseABC/main/od5.jpg",
     "ingredients": [
       {
         "i": "Punased läätsed",
@@ -3114,7 +3114,7 @@
     "nameEn": "Pancakes",
     "name": "Pannkoogid",
     "cat": "Lastele sobivad",
-    "thumb": "images/la1.jpg",
+    "thumb": "https://raw.githubusercontent.com/manalamees/perenaiseABC/main/la1.jpg",
     "ingredients": [
       {
         "i": "Munad",
@@ -3154,7 +3154,7 @@
     "nameEn": "Semolina Porridge",
     "name": "Mannapuder",
     "cat": "Lastele sobivad",
-    "thumb": "images/la2.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/rwuyqx1511383174.jpg",
     "ingredients": [
       {
         "i": "Piim",
@@ -3190,7 +3190,7 @@
     "nameEn": "Rice Porridge",
     "name": "Riisipuder",
     "cat": "Lastele sobivad",
-    "thumb": "images/la3.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/rwuyqx1511383174.jpg",
     "ingredients": [
       {
         "i": "Riis",
@@ -3230,7 +3230,7 @@
     "nameEn": "Meatballs",
     "name": "Hakklihapallid",
     "cat": "Lastele sobivad",
-    "thumb": "images/la4.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/sytuqu1511553755.jpg",
     "ingredients": [
       {
         "i": "Hakkliha",
@@ -3274,7 +3274,7 @@
     "nameEn": "Chicken Pasta",
     "name": "Kanapasta",
     "cat": "Lastele sobivad",
-    "thumb": "images/la5.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/llcbn01574260722.jpg",
     "ingredients": [
       {
         "i": "Pasta",
@@ -3319,7 +3319,7 @@
     "nameEn": "Homemade Pizza",
     "name": "Kodune pitsa",
     "cat": "Lastele sobivad",
-    "thumb": "images/la6.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/x0lk931587671540.jpg",
     "ingredients": [
       {
         "i": "Pitsapõhi või tainas",
@@ -3363,7 +3363,7 @@
     "nameEn": "Sausage Sauce",
     "name": "Viinerikaste",
     "cat": "Lastele sobivad",
-    "thumb": "images/la7.jpg",
+    "thumb": "https://www.themealdb.com/images/media/meals/sytuqu1511553755.jpg",
     "ingredients": [
       {
         "i": "Viinerid",

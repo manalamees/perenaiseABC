@@ -1,0 +1,8 @@
+od5.jpg = Läätsehautis
+la1.jpg = Pannkoogid
+la2.jpg = Mannapuder
+la3.jpg = Riisipuder
+la4.jpg = Hakklihapallid
+la5.jpg = Kanapasta
+la6.jpg = Kodune pitsa
+la7.jpg = Viinerikaste
