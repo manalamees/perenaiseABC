@@ -153,6 +153,7 @@ body{font-family:'DM Sans',sans-serif;background:#fefae0;color:var(--text);min-h
       <div class="btn-row">
         <button class="btn btn-g" onclick="showTab('cart')">🛒 Ostukorv</button>
         <button class="btn btn-g" onclick="showTab('recipes')">🔍 Retseptid</button>
+        <button class="btn" style="background:#fefae0;border-color:var(--green)" onclick="magicMenu()">🎲 Üllata mind</button>
         <button class="btn" onclick="clearMenu()">🗑️ Tühjenda</button>
       </div>
     </div>
@@ -200,7 +201,6 @@ body{font-family:'DM Sans',sans-serif;background:#fefae0;color:var(--text);min-h
 
 <script>
 // ── KONFIGURATSIOON ────────────────────────────────────────────────────────
-// MUUDA SEDA: sinu GitHub kasutajanimi ja repo nimi
 const GITHUB_USER = 'manalamees';
 const GITHUB_REPO = 'PerenaiseABC';
 const GITHUB_FILE = 'recipes.json';
@@ -222,7 +222,6 @@ async function init(){
   if(sp)persons=sp;if(sm)menu=sm;
   document.getElementById('pnum').textContent=persons;
 
-  // Proovi GitHubist laadida
   prog(20,'Laen retsepte GitHubist...');
   try{
     const r=await fetch(RECIPES_URL+'?t='+Date.now());
@@ -248,7 +247,7 @@ async function init(){
 function boot(){
   document.getElementById('loading').style.display='none';
   document.getElementById('app').style.display='flex';
-  document.getElementById('hcount').textContent=`${RECIPES.length} retsepti `;
+  document.getElementById('hcount').textContent=`${RECIPES.length} retsepti`;
   renderAll();
 }
 
@@ -262,6 +261,21 @@ function renderWeek(){
       ${m?`<div class="day-meal">${m.name}</div>`:`<div class="day-empty">Lisa</div><div class="day-plus">+</div>`}
     </div>`;
   }).join('');
+}
+
+function magicMenu() {
+  if(RECIPES.length === 0) return;
+  const daysWithFood = Object.keys(menu).length;
+  if(daysWithFood > 0 && !confirm('Kas soovid tühjad päevad täita suvaliste retseptidega?')) return;
+
+  for(let i = 0; i < 7; i++) {
+    if(!menu[i]) {
+      const randomR = RECIPES[Math.floor(Math.random() * RECIPES.length)];
+      menu[i] = randomR;
+    }
+  }
+  sv('tp_menu', menu);
+  renderWeek();
 }
 
 function renderCats(){
@@ -336,11 +350,11 @@ function openR(id){
 function closeR(){document.getElementById('rmodal').classList.remove('open');}
 
 function renderCart(){
-  const days=Object.keys(menu);
+  const daysWithFood=Object.keys(menu);
   const el=document.getElementById('cart');
-  if(!days.length){el.innerHTML='<div class="empty"><div class="empty-icon">🛒</div>Menüü on tühi.<br>Lisa esmalt retseptid.</div>';return;}
+  if(!daysWithFood.length){el.innerHTML='<div class="empty"><div class="empty-icon">🛒</div>Menüü on tühi.<br>Lisa esmalt retseptid.</div>';return;}
   const merged={};
-  days.forEach(i=>{menu[i].ingredients.forEach(it=>{const k=it.i.toLowerCase();if(!merged[k])merged[k]={name:it.i,qtys:[]};if(it.m)merged[k].qtys.push(it.m);});});
+  daysWithFood.forEach(i=>{menu[i].ingredients.forEach(it=>{const k=it.i.toLowerCase();if(!merged[k])merged[k]={name:it.i,qtys:[]};if(it.m)merged[k].qtys.push(it.m);});});
   const items=Object.values(merged);
   const done=items.filter(it=>checked.has(it.name.toLowerCase())).length;
   el.innerHTML=`
@@ -361,9 +375,9 @@ function renderCart(){
 function tog(k){checked.has(k)?checked.delete(k):checked.add(k);renderCart();}
 
 function copyL(){
-  const days=Object.keys(menu);
+  const daysWithFood=Object.keys(menu);
   const merged={};
-  days.forEach(i=>{menu[i].ingredients.forEach(it=>{const k=it.i.toLowerCase();if(!merged[k])merged[k]={name:it.i,qtys:[]};if(it.m)merged[k].qtys.push(it.m);});});
+  daysWithFood.forEach(i=>{menu[i].ingredients.forEach(it=>{const k=it.i.toLowerCase();if(!merged[k])merged[k]={name:it.i,qtys:[]};if(it.m)merged[k].qtys.push(it.m);});});
   const lines=['🛒 OSTUKORV',''];
   Object.values(merged).forEach(it=>lines.push(`• ${it.name}${it.qtys.length?' — '+it.qtys.slice(0,2).join(', '):''}`));
   lines.push('','📅 Nädala menüü:');
@@ -376,10 +390,10 @@ function copyL(){
 }
 
 function renderCook(){
-  const days=Object.keys(menu);
+  const daysWithFood=Object.keys(menu);
   const el=document.getElementById('cook');
-  if(!days.length){el.innerHTML='<div class="empty"><div class="empty-icon">👨‍🍳</div>Menüü on tühi.</div>';return;}
-  el.innerHTML=days.map(i=>{const r=menu[i];return`<div class="cook-day">
+  if(!daysWithFood.length){el.innerHTML='<div class="empty"><div class="empty-icon">👨‍🍳</div>Menüü on tühi.</div>';return;}
+  el.innerHTML=daysWithFood.map(i=>{const r=menu[i];return`<div class="cook-day">
     <div class="cook-hdr">
       <div class="cook-label">${DAYS[i]}</div>
       <div class="cook-name">${r.name}</div>
