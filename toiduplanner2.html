@@ -219,6 +219,8 @@ const ld=k=>{try{const d=localStorage.getItem(k);return d?JSON.parse(d):null}cat
 const prog=(p,m)=>{document.getElementById('pfill').style.width=p+'%';document.getElementById('pmsg').textContent=m};
 
 async function init(){
+  try { localStorage.removeItem('tp_recipes_cache'); } catch(e) {}
+
   const sp=ld('tp_persons'),sm=ld('tp_menu');
   if(sp)persons=sp;if(sm)menu=sm;
   document.getElementById('pnum').textContent=persons;
@@ -243,7 +245,7 @@ async function init(){
       sv('tp_recipes_cache',RECIPES);
     }catch(e2){
       prog(50,'Retseptifail ei laaditud, kasutan vahemälu...');
-      const cache=ld('tp_recipes_cache');
+      const cache=null; // cache disabled, old piltideta retseptid ei tohi tagasi tulla
       if(cache&&cache.length>0){
         RECIPES=cache;
       }else{
