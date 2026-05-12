@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>PerenaiseABC</title>
+<title>Nädala Toiduplanner</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap');
 :root{--green:#2d6a4f;--gl:#95d5b2;--gp:#d8f3dc;--text:#1b1b1b;--muted:#6b705c;--border:#e0e0d0;--white:#fff;--r:14px;--rs:8px}
@@ -117,7 +117,7 @@ body{font-family:'DM Sans',sans-serif;background:#fefae0;color:var(--text);min-h
 <body>
 
 <div class="loading" id="loading">
-  <div class="loading-logo">🍽️ PerenaiseABC</div>
+  <div class="loading-logo">🍽️ Toiduplanner</div>
   <div class="loading-sub">Laen retsepte GitHubist...</div>
   <div class="pbar"><div class="pfill" id="pfill"></div></div>
   <div class="pmsg" id="pmsg">Ühendun...</div>
@@ -127,7 +127,7 @@ body{font-family:'DM Sans',sans-serif;background:#fefae0;color:var(--text);min-h
   <div class="header">
     <div class="header-top">
       <div>
-        <div class="app-title">🍽️ PerenaiseABC</div>
+        <div class="app-title">🍽️ Toiduplanner</div>
         <div class="hcount" id="hcount">Laadimine...</div>
       </div>
     </div>
@@ -153,7 +153,6 @@ body{font-family:'DM Sans',sans-serif;background:#fefae0;color:var(--text);min-h
       <div class="btn-row">
         <button class="btn btn-g" onclick="showTab('cart')">🛒 Ostukorv</button>
         <button class="btn btn-g" onclick="showTab('recipes')">🔍 Retseptid</button>
-        <button class="btn" style="background:#fefae0;border-color:var(--green);font-weight:700" onclick="magicMenu()">🎲 Üllata mind</button>
         <button class="btn" onclick="clearMenu()">🗑️ Tühjenda</button>
       </div>
     </div>
@@ -201,6 +200,7 @@ body{font-family:'DM Sans',sans-serif;background:#fefae0;color:var(--text);min-h
 
 <script>
 // ── KONFIGURATSIOON ────────────────────────────────────────────────────────
+// MUUDA SEDA: sinu GitHub kasutajanimi ja repo nimi
 const GITHUB_USER = 'manalamees';
 const GITHUB_REPO = 'PerenaiseABC';
 const GITHUB_FILE = 'recipes.json';
@@ -222,12 +222,13 @@ async function init(){
   if(sp)persons=sp;if(sm)menu=sm;
   document.getElementById('pnum').textContent=persons;
 
+  // Proovi GitHubist laadida
   prog(20,'Laen retsepte GitHubist...');
   try{
     const r=await fetch(RECIPES_URL+'?t='+Date.now());
     if(!r.ok)throw new Error('HTTP '+r.status);
     prog(70,'Töötlen retsepte...');
-    RECIPES = await r.json();
+    RECIPES=await r.json();
     prog(100,'Valmis!');
     sv('tp_recipes_cache',RECIPES);
   }catch(e){
@@ -240,13 +241,14 @@ async function init(){
       RECIPES=getFallback();
     }
   }
+
   setTimeout(boot,300);
 }
 
 function boot(){
   document.getElementById('loading').style.display='none';
   document.getElementById('app').style.display='flex';
-  document.getElementById('hcount').textContent=`${RECIPES.length} retsepti`;
+  document.getElementById('hcount').textContent=`${RECIPES.length} retsepti eesti keeles`;
   renderAll();
 }
 
@@ -260,38 +262,6 @@ function renderWeek(){
       ${m?`<div class="day-meal">${m.name}</div>`:`<div class="day-empty">Lisa</div><div class="day-plus">+</div>`}
     </div>`;
   }).join('');
-}
-
-// FUNKTSIOON MIS TÄIDAB TÜHJAD PÄEVAD
-function magicMenu() {
-  if(!RECIPES || RECIPES.length === 0) {
-    alert("Retsepte ei leitud!");
-    return;
-  }
-  
-  let added = false;
-  for(let i = 0; i < 7; i++) {
-    if(!menu[i]) {
-      const randomR = RECIPES[Math.floor(Math.random() * RECIPES.length)];
-      menu[i] = randomR;
-      added = true;
-    }
-  }
-  
-  if(added) {
-    sv('tp_menu', menu);
-    renderWeek();
-  } else {
-    if(confirm("Menüü on juba täis. Kas soovid selle asendada uue suvalise valikuga?")) {
-      menu = {};
-      for(let i = 0; i < 7; i++) {
-        const randomR = RECIPES[Math.floor(Math.random() * RECIPES.length)];
-        menu[i] = randomR;
-      }
-      sv('tp_menu', menu);
-      renderWeek();
-    }
-  }
 }
 
 function renderCats(){
@@ -366,11 +336,11 @@ function openR(id){
 function closeR(){document.getElementById('rmodal').classList.remove('open');}
 
 function renderCart(){
-  const daysWithFood=Object.keys(menu);
+  const days=Object.keys(menu);
   const el=document.getElementById('cart');
-  if(!daysWithFood.length){el.innerHTML='<div class="empty"><div class="empty-icon">🛒</div>Menüü on tühi.</div>';return;}
+  if(!days.length){el.innerHTML='<div class="empty"><div class="empty-icon">🛒</div>Menüü on tühi.<br>Lisa esmalt retseptid.</div>';return;}
   const merged={};
-  daysWithFood.forEach(i=>{menu[i].ingredients.forEach(it=>{const k=it.i.toLowerCase();if(!merged[k])merged[k]={name:it.i,qtys:[]};if(it.m)merged[k].qtys.push(it.m);});});
+  days.forEach(i=>{menu[i].ingredients.forEach(it=>{const k=it.i.toLowerCase();if(!merged[k])merged[k]={name:it.i,qtys:[]};if(it.m)merged[k].qtys.push(it.m);});});
   const items=Object.values(merged);
   const done=items.filter(it=>checked.has(it.name.toLowerCase())).length;
   el.innerHTML=`
@@ -378,41 +348,44 @@ function renderCart(){
       <div class="cart-hdr-t">🛒 Ostukorv</div>
       <div class="cart-hdr-s">${done}/${items.length} ostetud · ${persons} inimesele</div>
     </div>
+    <div class="notice">Klõpsa tootel kui ostetud ✓</div>
     ${items.map(it=>{const k=it.name.toLowerCase();const ok=checked.has(k);return`<div class="citem" onclick="tog('${k}')">
       <div class="ccheck${ok?' done':''}">${ok?'✓':''}</div>
       <div class="cname${ok?' done':''}">${it.name}</div>
       <div class="cqty">${it.qtys.slice(0,2).join(', ')}</div>
     </div>`;}).join('')}
-    <div class="copy-bar" id="cpbar" onclick="copyL()">📋 Kopeeri nimekiri</div>`;
+    <div class="copy-bar" id="cpbar" onclick="copyL()">📋 Kopeeri nimekiri</div>
+    <button class="btn" style="width:100%;margin-top:8px" onclick="checked.clear();renderCart()">↺ Lähtesta märgistus</button>`;
 }
 
 function tog(k){checked.has(k)?checked.delete(k):checked.add(k);renderCart();}
 
 function copyL(){
-  const daysWithFood=Object.keys(menu);
+  const days=Object.keys(menu);
   const merged={};
-  daysWithFood.forEach(i=>{menu[i].ingredients.forEach(it=>{const k=it.i.toLowerCase();if(!merged[k])merged[k]={name:it.i,qtys:[]};if(it.m)merged[k].qtys.push(it.m);});});
+  days.forEach(i=>{menu[i].ingredients.forEach(it=>{const k=it.i.toLowerCase();if(!merged[k])merged[k]={name:it.i,qtys:[]};if(it.m)merged[k].qtys.push(it.m);});});
   const lines=['🛒 OSTUKORV',''];
   Object.values(merged).forEach(it=>lines.push(`• ${it.name}${it.qtys.length?' — '+it.qtys.slice(0,2).join(', '):''}`));
   lines.push('','📅 Nädala menüü:');
   DAYS.forEach((d,i)=>{if(menu[i])lines.push(`${d}: ${menu[i].name}`);});
   navigator.clipboard.writeText(lines.join('\n')).then(()=>{
     const b=document.getElementById('cpbar');
-    b.textContent='✓ Kopeeritud!';
-    setTimeout(()=>{b.textContent='📋 Kopeeri nimekiri';},2000);
-  });
+    b.textContent='✓ Kopeeritud! Kleebi WhatsAppi.';b.style.background='#1f4d38';
+    setTimeout(()=>{b.textContent='📋 Kopeeri nimekiri';b.style.background='';},3000);
+  }).catch(()=>alert(lines.join('\n')));
 }
 
 function renderCook(){
-  const daysWithFood=Object.keys(menu);
+  const days=Object.keys(menu);
   const el=document.getElementById('cook');
-  if(!daysWithFood.length){el.innerHTML='<div class="empty"><div class="empty-icon">👨‍🍳</div>Menüü on tühi.</div>';return;}
-  el.innerHTML=daysWithFood.map(i=>{const r=menu[i];return`<div class="cook-day">
+  if(!days.length){el.innerHTML='<div class="empty"><div class="empty-icon">👨‍🍳</div>Menüü on tühi.</div>';return;}
+  el.innerHTML=days.map(i=>{const r=menu[i];return`<div class="cook-day">
     <div class="cook-hdr">
       <div class="cook-label">${DAYS[i]}</div>
       <div class="cook-name">${r.name}</div>
     </div>
     <div class="cook-body">
+      <div class="cook-tags">${r.ingredients.slice(0,5).map(it=>`<span class="cook-tag">${it.i}</span>`).join('')}${r.ingredients.length>5?`<span class="cook-tag">+${r.ingredients.length-5}</span>`:''}</div>
       <button class="cook-btn" onclick="openR('${r.id}')">📖 Vaata retsepti →</button>
     </div>
   </div>`;}).join('');
@@ -430,8 +403,9 @@ document.getElementById('rmodal').addEventListener('click',e=>{if(e.target===doc
 document.getElementById('dmodal').addEventListener('click',e=>{if(e.target===document.getElementById('dmodal'))closeD();});
 
 function getFallback(){return[
-  {id:'f1',name:'Seapraad ahjus',cat:'Sealiha',thumb:'',ingredients:[{i:'Seakael',m:'800g'}],steps:['Küpseta ahjus.']},
-  {id:'f2',name:'Kana curry',cat:'Kana',thumb:'',ingredients:[{i:'Kanafilee',m:'500g'}],steps:['Hauta kookospiimas.']}
+  {id:'f1',name:'Seapraad ahjus',cat:'Sealiha',thumb:'',ingredients:[{i:'Seakael',m:'800g'},{i:'Küüslauk',m:'4 küünt'},{i:'Rosmariin',m:'2 oksa'}],steps:['Kuumuta ahi 180°C.','Küpseta 1.5 tundi.']},
+  {id:'f2',name:'Kana curry',cat:'Kana',thumb:'',ingredients:[{i:'Kanafilee',m:'500g'},{i:'Kookospiim',m:'400ml'},{i:'Currykaste',m:'2 sl'}],steps:['Prae kana.','Lisa curry ja kookospiim.','Hauta 20 min.']},
+  {id:'f3',name:'Spaghetti Bolognese',cat:'Pasta',thumb:'',ingredients:[{i:'Spaghetti',m:'400g'},{i:'Hakkliha',m:'500g'},{i:'Tomatid',m:'400g'}],steps:['Prae hakkliha.','Lisa tomatid.','Sega pastaga.']},
 ];}
 
 init();
