@@ -294,7 +294,7 @@ function filterR(){
   document.getElementById('rcount').textContent=`${f.length} retsepti`;
   document.getElementById('rlist').innerHTML=f.length?f.map(r=>`
     <div class="rrow">
-      ${r.thumb?`<img class="rthumb" src="${r.thumb}" alt="${r.name}" loading="lazy" onerror="this.style.display='none'" />`:`<div class="rthumb-ph">${EMOJI[r.cat]||'🍽️'}</div>`}
+      ${r.thumb?`<img class="rthumb" src="${r.thumb}" alt="${r.name}" loading="lazy" onerror="this.outerHTML='<div class=&quot;rthumb-ph&quot;>'+ (EMOJI[r.cat]||'🍽️') +'</div>'" />`:`<div class="rthumb-ph">${EMOJI[r.cat]||'🍽️'}</div>`}
       <div class="rinfo">
         <div class="rname">${r.name}</div>
         <div class="rcat">${r.cat} · ${r.ingredients.length} koostisainet</div>
