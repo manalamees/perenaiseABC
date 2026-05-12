@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Nädala Toiduplanner</title>
+<title>PerenaiseABC</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap');
 :root{--green:#2d6a4f;--gl:#95d5b2;--gp:#d8f3dc;--text:#1b1b1b;--muted:#6b705c;--border:#e0e0d0;--white:#fff;--r:14px;--rs:8px}
@@ -117,7 +117,7 @@ body{font-family:'DM Sans',sans-serif;background:#fefae0;color:var(--text);min-h
 <body>
 
 <div class="loading" id="loading">
-  <div class="loading-logo">🍽️ Toiduplanner</div>
+  <div class="loading-logo">🍽️ PerenaiseABC</div>
   <div class="loading-sub">Laen retsepte GitHubist...</div>
   <div class="pbar"><div class="pfill" id="pfill"></div></div>
   <div class="pmsg" id="pmsg">Ühendun...</div>
@@ -127,7 +127,7 @@ body{font-family:'DM Sans',sans-serif;background:#fefae0;color:var(--text);min-h
   <div class="header">
     <div class="header-top">
       <div>
-        <div class="app-title">🍽️ Toiduplanner</div>
+        <div class="app-title">🍽️ PerenaiseABC</div>
         <div class="hcount" id="hcount">Laadimine...</div>
       </div>
     </div>
@@ -248,7 +248,7 @@ async function init(){
 function boot(){
   document.getElementById('loading').style.display='none';
   document.getElementById('app').style.display='flex';
-  document.getElementById('hcount').textContent=`${RECIPES.length} retsepti eesti keeles`;
+  document.getElementById('hcount').textContent=`${RECIPES.length} retsepti `;
   renderAll();
 }
 
